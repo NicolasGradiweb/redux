@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 table {
   width: 100%;
   text-align: left;
@@ -13,4 +17,19 @@ table td, table th {
 
 tr:nth-child(2n) {
   background-color: lavender;
+}
+
+#menu { 
+  padding: 1.25rem;
+  font-size: 1.25rem;
+  background-color: #253A46;
+}
+
+#menu a, #menu a:visited {
+  color: #ffe;
+}
+
+#menu a {
+  padding: 0 1.5rem 0 0;
+  text-decoration: none;
 }
