@@ -1,13 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Menu = ({ linkList }) => {
   return (
     <nav id='menu'>
       {linkList.map(link => (
-        <a 
+        <Link 
           key={link.id} 
-          href={link.link}
-        >{link.text}</a>
+          to={link.link}
+        >{link.text}</Link>
       ))}
     </nav>
   )
