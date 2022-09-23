@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React, { useEffect } from 'react'
 import TableRow from './TableRow';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, setUsers } from '../../redux/actions/users';
+import { getOriginalUsers } from '../../redux/actions/users';
 
 const Users = () => {
-  // const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
 
   const store = useSelector(store => store.usersReducer);
   const { users } = store;
-  console.log(users, '..store')
 
   useEffect(() => {
-    const fetchData = async() => {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-  
-      if(response.status === 200) {
-        dispatch(setUsers([...response.data]));
-      }
-    }
+    if(users.length) return;
 
-    fetchData();
+    dispatch(getOriginalUsers());
   }, [])
   
 

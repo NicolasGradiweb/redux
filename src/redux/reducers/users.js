@@ -9,6 +9,7 @@ export const usersReducer = (state = INIT_STATE, action) => {
     case types.GET_USERS:
       return { ...state }
     case types.SET_USERS:
+    case types.GET_ORIGINAL_USERS:
       return { ...state, users: action.payload }
     default:
       return state  
