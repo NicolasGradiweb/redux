@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import TableRow from './TableRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
 import Loader from '../common/Loader';
