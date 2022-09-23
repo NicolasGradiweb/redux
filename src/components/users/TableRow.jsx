@@ -8,7 +8,7 @@ const TableRow = ({ id, name, email, link }) => {
       <td>{ email }</td>
       <td>{ link }</td>
       <td>
-        <Link to={`posts/${id}`}>
+        <Link to={`/posts/${id}`}>
           <Eye/>
         </Link>
       </td>

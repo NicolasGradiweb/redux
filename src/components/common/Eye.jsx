@@ -2,7 +2,7 @@ import '../../styles/eye.css';
 
 const Eye = () => {
   return (
-    <div class="eye-solid icon"></div>
+    <div className="eye-solid icon"></div>
   )
 }
 
