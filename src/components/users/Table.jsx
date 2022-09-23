@@ -9,7 +9,8 @@ const Table = () => {
   const tableHead = [
     {id: 1, text: 'Name'},
     {id: 2, text: 'Email'},
-    {id: 3, text: 'Link'}
+    {id: 3, text: 'Link'},
+    {id: 4, text: 'Info'}
   ];
 
   const renderHead = () => (

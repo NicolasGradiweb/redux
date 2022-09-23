@@ -1,4 +1,4 @@
-import React from 'react'
+import Eye from '../common/Eye';
 
 const TableRow = ({ name, email, link }) => {
   return (
@@ -6,6 +6,7 @@ const TableRow = ({ name, email, link }) => {
       <td>{ name }</td>
       <td>{ email }</td>
       <td>{ link }</td>
+      <td><Eye/></td>
     </tr>
   )
 }
