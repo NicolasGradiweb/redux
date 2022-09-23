@@ -23,6 +23,7 @@ const Table = () => {
     user => (
       <TableRow
         key={user.id}
+        id={user.id}
         name={user.name}
         email={user.email}
         link={user.website}
