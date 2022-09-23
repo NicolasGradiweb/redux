@@ -3,7 +3,7 @@ import { types } from "../types/user"
 
 export const getOriginalUsers = () => async(dispatch) => {
   try {
-    const API = 'https://jsonplaceholder.typicode.com/usersk';
+    const API = 'https://jsonplaceholder.typicode.com/users';
     const response = await axios.get(API);
   
     const { status, data } = response;
