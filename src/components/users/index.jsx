@@ -3,6 +3,7 @@ import TableRow from './TableRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
 import Loader from '../common/Loader';
+import Error from '../common/Error';
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -46,9 +47,9 @@ const Users = () => {
     <>
       {
         loading 
-        ? <Loader/>
+        ? <Loader />
         : error
-        ? <h2>There was en error</h2>
+        ? <Error error={error} />
         : setTable()
       }
     </>

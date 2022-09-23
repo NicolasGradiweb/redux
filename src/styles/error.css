@@ -1,0 +1,13 @@
+.error {
+  width: 100%;
+  padding: 20rem 0;
+}
+
+.error h2, .error p {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.error p:first-of-type {
+  color: #777;
+}

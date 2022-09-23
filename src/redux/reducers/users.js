@@ -3,7 +3,7 @@ import { types } from "../types/user"
 const INIT_STATE = {
   users: [],
   loading: false,
-  error: false
+  error: ''
 }
 
 export const usersReducer = (state = INIT_STATE, action) => {
@@ -25,10 +25,10 @@ export const usersReducer = (state = INIT_STATE, action) => {
     case types.SET_ERROR:
       return { 
         ...state, 
-        error: true, 
+        error: action.payload, 
         loading: false 
       }
-      
+
     default:
       return state  
   }

@@ -3,7 +3,7 @@ import { types } from "../types/user"
 
 export const getOriginalUsers = () => async(dispatch) => {
   try {
-    const API = 'https://jsonplaceholder.typicode.com/users';
+    const API = 'https://jsonplaceholder.typicode.com/usersk';
     const response = await axios.get(API);
   
     const { status, data } = response;
@@ -15,7 +15,7 @@ export const getOriginalUsers = () => async(dispatch) => {
   } catch (error) {
     dispatch({
       type: types.SET_ERROR,
-      payload: true
+      payload: error.message
     })
   }
 }
