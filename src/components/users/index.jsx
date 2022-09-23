@@ -2,11 +2,12 @@ import React, { useEffect } from 'react'
 import TableRow from './TableRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
+import Loader from '../common/Loader';
 
 const Users = () => {
   const dispatch = useDispatch();
-
   const store = useSelector(store => store.usersReducer);
+
   const { users, loading, error } = store;
 
   /* Initial loading */
@@ -26,28 +27,29 @@ const Users = () => {
     ))
   )
 
+  const setTable = () => (
+    <table>
+      <thead>
+        <tr className='row'>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        { setRows() }
+      </tbody>
+    </table>
+  )
+
   return (
     <>
       {
         loading 
-        ?
-        <p>...Loading</p>
+        ? <Loader/>
         : error
-        ?
-        <h2>There was en error</h2>
-        :
-        <table>
-          <thead>
-            <tr className='row'>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            { setRows() }
-          </tbody>
-        </table>
+        ? <h2>There was en error</h2>
+        : setTable()
       }
     </>
   )
