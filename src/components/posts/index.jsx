@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
@@ -13,6 +13,7 @@ const Posts = () => {
     loading,
     error
   } = useSelector(store => store.usersReducer);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     if(users.length) return;
@@ -21,9 +22,15 @@ const Posts = () => {
     dispatch(getOriginalUsers());
   }, [])
   
+  useEffect(() => {
+    if(!users.length) return;
+
+    setUsername(getUserName())
+  }, [users])
+
   const getUserName = () => {
     const user = users.find(({id}) => id === parseInt(key))
-
+    console.log('asssign name')
     return `Posts from ${user.name}`;
   }
 
@@ -34,7 +41,7 @@ const Posts = () => {
         ? <Loader />
         : error
         ? <Error error={error} />
-        : <h1>{users.length && getUserName()}</h1>
+        : <h1>{users.length && username}</h1>
       }
       { key }
     </section>
