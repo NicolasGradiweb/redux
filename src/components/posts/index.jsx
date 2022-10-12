@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
+import { getUserPost, initLoadingPosts } from '../../redux/actions/posts';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
 import Error from '../common/Error';
 import Loader from '../common/Loader';
@@ -8,18 +9,27 @@ import Loader from '../common/Loader';
 const Posts = () => {
   const { key } = useParams();
   const dispatch = useDispatch();
-  const { 
-    users ,
-    loading,
-    error
-  } = useSelector(store => store.usersReducer);
+  const [
+    { 
+      users ,
+      loading: usersLoading,
+      error: usersError
+    },
+    { 
+      posts ,
+      loading: postsLoading,
+      error: postsError
+    }
+  ] = useSelector(store => [store.usersReducer, store.postsReducer]);
   const [username, setUsername] = useState('');
 
   useEffect(() => {
     if(users.length) return;
 
     dispatch(initLoadingUsers());
+    dispatch(initLoadingPosts());
     dispatch(getOriginalUsers());
+    dispatch(getUserPost(key));
   }, [])
   
   useEffect(() => {
@@ -30,20 +40,30 @@ const Posts = () => {
 
   const getUserName = () => {
     const user = users.find(({id}) => id === parseInt(key))
-    console.log('asssign name')
     return `Posts from ${user.name}`;
   }
 
   return (
     <section>
       {
-        loading
+        usersLoading || postsLoading 
         ? <Loader />
-        : error
-        ? <Error error={error} />
-        : <h1>{users.length && username}</h1>
+        :
+        <>
+        {
+          usersError
+          ? <Error error={usersError} />
+          : <h1>{users.length && username}</h1>
+        }
+        { 
+          postsError
+          ? <Error error={postsError} />
+          : posts.map(post => (
+            <p key={post.id}>{post.body}</p>
+          ))
+        }
+        </>
       }
-      { key }
     </section>
   )
 }

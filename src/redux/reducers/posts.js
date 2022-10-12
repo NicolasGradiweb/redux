@@ -11,7 +11,7 @@ export const postsReducer = (state = INIT_STATE, action) => {
     case types.GET_USER_POST:
       return { 
         ...state, 
-        users: action.payload ,
+        posts: action.payload,
         loading: false
       }
 
