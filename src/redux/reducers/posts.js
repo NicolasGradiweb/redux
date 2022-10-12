@@ -1,4 +1,5 @@
 import { types } from "../types/posts"
+import "../../styles/posts.css";
 
 const INIT_STATE = {
   posts: [],
@@ -23,6 +24,12 @@ export const postsReducer = (state = INIT_STATE, action) => {
         ...state, 
         error: action.payload, 
         loading: false 
+      }
+    
+    case types.CLEAN_POST:
+      return {
+        ...INIT_STATE,
+        loading: true
       }
 
     default:

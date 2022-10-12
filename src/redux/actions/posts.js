@@ -4,17 +4,13 @@ import { types } from "../types/posts";
 
 export const getUserPost = (userId) => async(dispatch) => {
   try {
-    const response = await axios.get(API.GET_USER_POST);
+    const response = await axios.get(`${API.GET_USER_POST}?userId=${userId}`);
   
     const { status, data } = response;
-  
-    const allPosts = status === 200 ? [...data] : []
-
-    const filteredPosts = allPosts.filter(post => post.userId === parseInt(userId));
 
     dispatch({
       type: types.GET_USER_POST,
-      payload: filteredPosts
+      payload: status === 200 ? [...data] : []
     })
   } catch (error) {
     dispatch({
@@ -22,6 +18,12 @@ export const getUserPost = (userId) => async(dispatch) => {
       payload: error.message
     })
   }
+}
+
+export const cleanPosts = () => (dispatch) => {
+  dispatch({
+    type: types.CLEAN_POST
+  })
 }
 
 export const initLoadingPosts = () => (dispatch) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
-import { getUserPost, initLoadingPosts } from '../../redux/actions/posts';
+import { cleanPosts, getUserPost, initLoadingPosts } from '../../redux/actions/posts';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
 import Error from '../common/Error';
 import Loader from '../common/Loader';
@@ -24,12 +24,15 @@ const Posts = () => {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    if(users.length) return;
+    if(!users.length) {
+      dispatch(initLoadingUsers());
+      dispatch(initLoadingPosts());
+    }
 
-    dispatch(initLoadingUsers());
-    dispatch(initLoadingPosts());
     dispatch(getOriginalUsers());
     dispatch(getUserPost(key));
+
+    return () => dispatch(cleanPosts())
   }, [])
   
   useEffect(() => {
@@ -44,7 +47,7 @@ const Posts = () => {
   }
 
   return (
-    <section>
+    <section className='posts'>
       {
         usersLoading || postsLoading 
         ? <Loader />
