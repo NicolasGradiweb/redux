@@ -27,10 +27,10 @@ const Posts = () => {
     const dispatchActions = async() => {
       if(!users.length) {
         await dispatch(initLoadingUsers());
-        await dispatch(initLoadingPosts());
+        await dispatch(getOriginalUsers());
       }
-  
-      dispatch(getOriginalUsers());
+      
+      dispatch(initLoadingPosts());
       dispatch(getUserPost(key));
     }
 
