@@ -24,13 +24,17 @@ const Posts = () => {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    if(!users.length) {
-      dispatch(initLoadingUsers());
-      dispatch(initLoadingPosts());
+    const dispatchActions = async() => {
+      if(!users.length) {
+        await dispatch(initLoadingUsers());
+        await dispatch(initLoadingPosts());
+      }
+  
+      dispatch(getOriginalUsers());
+      dispatch(getUserPost(key));
     }
 
-    dispatch(getOriginalUsers());
-    dispatch(getUserPost(key));
+    dispatchActions();
 
     return () => dispatch(cleanPosts())
   }, [])
