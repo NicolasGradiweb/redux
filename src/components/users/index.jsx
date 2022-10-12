@@ -9,10 +9,11 @@ const Users = () => {
   const dispatch = useDispatch();
   const store = useSelector(store => store.usersReducer);
 
-  const { loading, error } = store;
+  const { users, loading, error } = store;
 
   /* Initial loading */
   useEffect(() => {
+    if(users.length) return;
     dispatch(initLoadingUsers());
     dispatch(getOriginalUsers());
   }, [])
