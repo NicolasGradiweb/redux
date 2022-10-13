@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { getUserPost, initLoadingPosts } from '../../redux/actions/posts';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
+import Comment from '../comment';
 import Error from '../common/Error';
 import Loader from '../common/Loader';
 import Post from './Post';
@@ -23,6 +24,7 @@ const Posts = () => {
     }
   ] = useSelector(store => [store.usersReducer, store.postsReducer]);
   const [username, setUsername] = useState('');
+  const [closeComment, setCloseComment] = useState(true);
 
   useEffect(() => {
     const dispatchActions = async() => {
@@ -52,6 +54,7 @@ const Posts = () => {
   }
 
   return (
+    <>
     <section className='posts'>
       {
         usersLoading || postsLoading 
@@ -71,12 +74,18 @@ const Posts = () => {
               key={post.id}
               title={post.title}    
               body={post.body}    
+              setCloseComment={setCloseComment}
             />
           ))
         }
         </>
       }
     </section>
+    {
+      !closeComment &&
+      <Comment callback={setCloseComment}/>
+    }
+    </>
   )
 }
 
