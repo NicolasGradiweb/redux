@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
-import { cleanPosts, getUserPost, initLoadingPosts } from '../../redux/actions/posts';
+import { getUserPost, initLoadingPosts } from '../../redux/actions/posts';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
 import Error from '../common/Error';
 import Loader from '../common/Loader';
@@ -29,14 +29,14 @@ const Posts = () => {
         await dispatch(initLoadingUsers());
         await dispatch(getOriginalUsers());
       }
-      
-      dispatch(initLoadingPosts());
-      dispatch(getUserPost(key));
+
+      if(!posts[key]) {
+        dispatch(initLoadingPosts());
+        dispatch(getUserPost(key));
+      }
     }
 
     dispatchActions();
-
-    return () => dispatch(cleanPosts())
   }, [])
   
   useEffect(() => {
@@ -59,13 +59,13 @@ const Posts = () => {
         <>
         {
           usersError
-          ? <Error error={usersError} />
+          ? <Error error={usersError} text='users'/>
           : <h1>{users.length && username}</h1>
         }
         { 
           postsError
-          ? <Error error={postsError} />
-          : posts.map(post => (
+          ? <Error error={postsError} text='posts'/>
+          : posts[key]?.map(post => (
             <p key={post.id}>{post.body}</p>
           ))
         }
@@ -76,3 +76,7 @@ const Posts = () => {
 }
 
 export default Posts
+
+// posts[key].map(post => (
+//   <p key={post.id}>{post.body}</p>
+// ))

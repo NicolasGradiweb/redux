@@ -2,7 +2,7 @@ import { types } from "../types/posts"
 import "../../styles/posts.css";
 
 const INIT_STATE = {
-  posts: [],
+  posts: {},
   loading: false,
   error: ''
 }
