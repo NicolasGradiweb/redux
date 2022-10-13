@@ -5,6 +5,7 @@ import { getUserPost, initLoadingPosts } from '../../redux/actions/posts';
 import { getOriginalUsers, initLoadingUsers } from '../../redux/actions/users';
 import Error from '../common/Error';
 import Loader from '../common/Loader';
+import Post from './Post';
 
 const Posts = () => {
   const { key } = useParams();
@@ -66,7 +67,11 @@ const Posts = () => {
           postsError
           ? <Error error={postsError} text='posts'/>
           : posts[key]?.map(post => (
-            <p key={post.id}>{post.body}</p>
+            <Post 
+              key={post.id}
+              title={post.title}    
+              body={post.body}    
+            />
           ))
         }
         </>
