@@ -7,6 +7,12 @@
   padding: 0 10px;
   border-radius: 10px;
   border: 1px solid lightgray;
+  cursor: pointer;
+  transition: opacity .5s ease-in-out;
+}
+
+.post:hover {
+  opacity: .85;
 }
 
 .post-title, .post-text {
