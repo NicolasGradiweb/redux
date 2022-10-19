@@ -25,6 +25,7 @@ const Posts = () => {
   ] = useSelector(store => [store.usersReducer, store.postsReducer]);
   const [username, setUsername] = useState('');
   const [closeComment, setCloseComment] = useState(true);
+  const [postId, setPostId] = useState(null);
 
   useEffect(() => {
     const dispatchActions = async() => {
@@ -72,9 +73,11 @@ const Posts = () => {
           : posts[key]?.map(post => (
             <Post 
               key={post.id}
+              id={post.id}
               title={post.title}    
               body={post.body}    
               setCloseComment={setCloseComment}
+              setPostId={setPostId}
             />
           ))
         }
@@ -83,7 +86,7 @@ const Posts = () => {
     </section>
     {
       !closeComment &&
-      <Comment callback={setCloseComment}/>
+      <Comment callback={setCloseComment} postId={postId}/>
     }
     </>
   )
