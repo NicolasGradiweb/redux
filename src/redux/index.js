@@ -2,10 +2,12 @@ import { applyMiddleware, legacy_createStore as createStore, compose, combineRed
 import thunk from 'redux-thunk'
 import { usersReducer } from "./reducers/users";
 import { postsReducer } from "./reducers/posts";
+import { commentsReducer } from "./reducers/comments";
 
 const rootReducer = combineReducers({
   usersReducer,
-  postsReducer
+  postsReducer,
+  commentsReducer
 });
 
 //Store data in redux devtools extension

@@ -1,10 +1,20 @@
 import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import useClickOutside from "../../hooks/useClickOutside";
+import { cleanComments, initLoadingComments, setPostComments } from "../../redux/actions/comments";
 import "../../styles/comment.css";
+import Error from "../common/Error";
+import Loader from "../common/Loader";
 
 const Comment = ({ callback , postId }) => {
+  const dispatch = useDispatch();
+  const { 
+    comments,
+    loading,
+    error
+  } = useSelector(store => store.commentsReducer);
+
   const [transition, setTransition] = useState('');
-  const [comments, setComments] = useState([1,2,3,4,5]);
   const closeNode = useClickOutside(() => callback(true))
 
   useEffect(() => {
@@ -13,15 +23,27 @@ const Comment = ({ callback , postId }) => {
   }, [])
   
   useEffect(() => {
-    
+    if(!postId) return;
+
+    dispatch(initLoadingComments())
+    dispatch(setPostComments(postId))
+
+    return () => dispatch(cleanComments())
   }, [postId])
   
   return (
     <div className={`fade ${transition}`}>
       <section className='comment' ref={closeNode}>
-        {comments.map(comment => (
-          <p>This is a comment</p>
-        ))}
+        <h2>Comments</h2>
+        {
+          loading 
+          ? <Loader />
+          : error
+          ? <Error error={error} />
+          : comments.map(comment => (
+            <p key={comment.id}>{comment.body}</p>
+          ))
+        }
       </section>
     </div>
   )
