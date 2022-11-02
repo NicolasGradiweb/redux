@@ -27,3 +27,7 @@
 .comment p {
   margin: 0 0 15px;
 }
+
+.comment .lds-ripple {
+  height: 280px !important;
+}
